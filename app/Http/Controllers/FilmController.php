@@ -20,14 +20,15 @@ class FilmController extends Controller
     }
     public function getFilm(Request $request)
     {
-        $filmcs = Film::with('catigoryFilms')->get()
-            ->when($request->name, function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->name . '%');
-        })->when($request->phone, function ($q) use ($request) {
-            $q->where('showtime', 'like', '%' . $request->showtime . '%');
-        });
+        $filmcs = Film::with('catigoryFilms')->where('name','like','%'.$request->name.'%')->get();
         return response()->json($filmcs);
     }
+//غير مستخدمة
+    public function searchFilm(Request $request)
+    {
+        return Film::where('name','like','%'.$request->name.'%')->get();
+    }
+
 
 
     /**
@@ -44,7 +45,7 @@ class FilmController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/getfilm', [\App\Http\Controllers\FilmController::class, 'getFilm']);
+Route::get('/searchFilm', [\App\Http\Controllers\FilmController::class, 'searchfilm']);
 Route::post('/login', [\App\Http\Controllers\FilmController::class, 'login']);
 //Api يحتاج Auth
 Route::group(['middleware'=>'auth:api'],function() {
