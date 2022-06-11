@@ -11,7 +11,7 @@ class CatigoryFilm extends Model
     protected $table=('film_categories');
 
     public  function films(){
-        return $this->hasMany(Film::class);
+        return $this->hasMany(Film::class,'catigory_id');
     }
 
 

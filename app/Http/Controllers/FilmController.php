@@ -23,11 +23,7 @@ class FilmController extends Controller
         $filmcs = Film::with('catigoryFilms')->where('name','like','%'.$request->name.'%')->get();
         return response()->json($filmcs);
     }
-//غير مستخدمة
-    public function searchFilm(Request $request)
-    {
-        return Film::where('name','like','%'.$request->name.'%')->get();
-    }
+
 
 
 
@@ -69,8 +65,15 @@ class FilmController extends Controller
             $data = $validated->errors();
             return response()->json(compact('msg', 'data'), 422);
         }
-
-        $path = $request->file('image')->store('public/image');
+//save in storage
+     //   $path = $request->file('image')->store('public/image');
+        //////////////////////////////////////////
+        if ($request->hasFile('image')){
+            $file=$request->file('image');
+            $image_name=time().'.'.$file->getClientOriginalExtension();
+            $path='images'.'/'.$image_name;
+            $file->move(public_path('images'),$image_name);
+        }
         $film = new Film();
         $film->name = $request->name;
         $film->catigory_id  = $request->catigory_id;
@@ -103,8 +106,14 @@ class FilmController extends Controller
             $data = $validated->errors();
             return response()->json(compact('msg', 'data'), 422);
         }
-
-        $path = $request->file('image')->store('public/image');
+//update in storage
+       // $path = $request->file('image')->store('public/image');
+        if ($request->hasFile('image')){
+            $file=$request->file('image');
+            $image_name=time().'.'.$file->getClientOriginalExtension();
+            $path='images'.'/'.$image_name;
+            $file->move(public_path('images'),$image_name);
+        }
         $film = Film::Find($id);
         $film->name = $request->name;
         $film->catigory_id  = $request->catigory_id;

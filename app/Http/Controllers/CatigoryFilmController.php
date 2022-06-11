@@ -20,7 +20,7 @@ class CatigoryFilmController extends Controller
     }
     public function getCategory()
     {
-        $categorycs = CatigoryFilm::get();
+        $categorycs = CatigoryFilm::with('films')->get();
         return response()->json($categorycs);
     }
 
