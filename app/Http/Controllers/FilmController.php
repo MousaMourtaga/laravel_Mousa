@@ -20,7 +20,7 @@ class FilmController extends Controller
     }
     public function getFilm(Request $request)
     {
-        $filmcs = Film::with('catigoryFilms')->where('name','like','%'.$request->name.'%')->get();
+        $filmcs = Film::with('catigoryFilms')->where('name','like','%'.$request->name.'%')->where('showtime','like','%'.$request->showtime.'%')->get();
         return response()->json($filmcs);
     }
 
